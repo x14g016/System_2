@@ -26,6 +26,7 @@ var box2_image ="./images/box2.png";
 
 var left_image ="./images/left.png";
 var right_image="./images/right.png";
+var input_image = "./images/input.png";
 
 //アセットリスト
 var ASSETS = [ ROOM1_IMAGE, ROOM2_IMAGE, ROOM3_IMAGE, ROOM4_IMAGE, ];
@@ -35,6 +36,13 @@ var ASSETS = [ ROOM1_IMAGE, ROOM2_IMAGE, ROOM3_IMAGE, ROOM4_IMAGE, ];
  * グローバル変数
  */
 var game = null;
+var input_I = 0;
+var btr_Ci=0;
+var btr_Bi=0;
+var btr_Ai=0;
+var btr_R =1;
+var btnStr =["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","Y","Z"];
+
 
 
 /*
@@ -55,9 +63,11 @@ window.onload = function() {
     var isTouch = false;    // タッチフラグ(タッチ中のみ true にする)
     var touchX  = null;     // タッチX座標
     var touchY  = null;     // タッチY座標
+ 	game.fps = 24;
+     
+
     
-    
-   game.preload(ASSETS);
+   	game.preload(ASSETS);
     //矢印
     game.preload("http://jsrun.it/assets/Y/v/p/P/YvpP5.gif");
     game.preload("http://jsrun.it/assets/Q/E/j/P/QEjPU.gif");
@@ -71,12 +81,25 @@ window.onload = function() {
     //箱
     game.preload(box1_image);
     game.preload(box2_image);
+    //矢印
     game.preload(left_image);
     game.preload(right_image);
     
+    //掲示板
+    game.preload(input_image);
+
     // ゲーム開始時の処理
     game.onload = function() {
         
+        
+        var scene = game.rootScene;
+        scene.backgroundColor = "black";
+        
+        var scene = game.rootScene;
+        scene.backgroundColor = "black";
+        
+        var scene = game.rootScene;
+        scene.backgroundColor = "black";
         
         var scene = game.rootScene;
         scene.backgroundColor = "black";
@@ -95,6 +118,7 @@ window.onload = function() {
         
         switch(view){
             case 1 :
+            	btr_R=1;
                 var room1 = new Sprite(800, 600);
                 room1.image = game.assets[ROOM1_IMAGE];
                 room1.moveTo(10, 20);
@@ -102,6 +126,7 @@ window.onload = function() {
                 Right();
                 Left();
                 Door();
+                button();
                 break;
             case 2 :
                 var room2 = new Sprite(800, 600);
@@ -110,6 +135,7 @@ window.onload = function() {
                 scene.addChild(room2);
                 Right();
                 Left();
+				button();
                 break;
             case 3 :
                 var room3 = new Sprite(800, 600);
@@ -119,8 +145,10 @@ window.onload = function() {
                 Right();
                 Left();
                 Key();
+                button();
                 break;
             case 4 :
+            	
                 var room4 = new Sprite(800, 600);
                 room4.image = game.assets[ROOM4_IMAGE];
                 room4.moveTo(10, 20);
@@ -128,6 +156,8 @@ window.onload = function() {
                 Right();
                 Left();
                 box();
+                input();
+                
                break;
             }
             
@@ -211,7 +241,7 @@ window.onload = function() {
             		if(i==0){
             		var box = new Sprite(200,222);
             		box.image = game.assets[box1_image];
-            		box.moveTo(250, 400);
+            		box.moveTo(200, 400);
             		scene.addChild(box);
             		
             		box.ontouchstart =	function box2(){
@@ -221,7 +251,7 @@ window.onload = function() {
            			}
            			var box2 = new Sprite(300,200);
            			box2.image = game.assets[box2_image];
-           			box2.moveTo(250,400);
+           			box2.moveTo(200,400);
            			scene.addChild(box2);
            			box2.ontouchstart = box3();
            			
@@ -263,13 +293,51 @@ window.onload = function() {
                         miti.moveTo(265, 163);
 			window.location.href = 'https://www.google.co.jp/';
                         scene.addChild(miti);
-                        
-                    };
-                    }
-                    
-                }
-                
-                
+                 			   }
+                   			 }
+                   			}
+				function input(){
+					
+					var input = new Sprite(300,150);
+					input.image = game.assets[input_image];
+					input.moveTo(75,100);
+					scene.addChild(input);
+				}
+					
+				 
+				 
+				 	//ボタン
+				 	function button(){
+				        buttonC.moveTo(200,200);
+				        buttonB.moveTo(150,200);
+				        buttonA.moveTo(100,200);
+				        scene.addChild(buttonA);
+				     	scene.addChild(buttonB);
+				        scene.addChild(buttonC);
+				        
+				        var buttonA = new Button(btnStr[btr_Ai],"dark",20,25);
+						var buttonB = new Button(btnStr[btr_Bi],"dark",20,25);
+						var buttonC = new Button(btnStr[btr_Ci],"dark",20,25);
+				  
+				        
+				        buttonA.ontouchstart = function(){
+				        btr_Ai = btr_Ai+1;
+                										}
+                	 	buttonB.ontouchstart = function(){
+				        btr_Bi = btr_Bi+1;
+                										}
+                		buttonC.ontouchstart = function(){
+				        btr_Ci = btr_Ci+1;
+                										}
+                		
+               		if(btr_R==0){
+               		scene.removeChild(buttonA);
+               		scene.removeChild(buttonB);
+               		scene.removeChild(buttonC);
+               		btr_R=1;
+               		}
+               	}
+                 
             }//room
         
            
