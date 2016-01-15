@@ -24,6 +24,9 @@ var goal_image = "./images/goal.png";
 var box1_image ="./images/box1.png"; 
 var box2_image ="./images/box2.png";
 
+//ボタン
+
+
 var left_image ="./images/left.png";
 var right_image="./images/right.png";
 var input_image = "./images/input.png";
@@ -41,9 +44,12 @@ var btr_Ci=0;
 var btr_Bi=0;
 var btr_Ai=0;
 var btr_R =1;
+var btr_A =1;
 var btnStr =["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","Y","Z"];
 
-
+var buttonA = new Button(btnStr[btr_Ai],"dark",20,25);
+var buttonB = new Button(btnStr[btr_Bi],"dark",20,25);
+var buttonC = new Button(btnStr[btr_Ci],"dark",20,25);
 
 /*
  * 汎用処理
@@ -129,6 +135,7 @@ window.onload = function() {
                 button();
                 break;
             case 2 :
+            	btr_R=1;
                 var room2 = new Sprite(800, 600);
                 room2.image = game.assets[ROOM2_IMAGE];
                 room2.moveTo(10, 20);
@@ -138,6 +145,7 @@ window.onload = function() {
 				button();
                 break;
             case 3 :
+            	btr_R=1;
                 var room3 = new Sprite(800, 600);
                 room3.image = game.assets[ROOM3_IMAGE];
                 room3.moveTo(10, 20);
@@ -148,7 +156,7 @@ window.onload = function() {
                 button();
                 break;
             case 4 :
-            	
+            	btr_R=0;
                 var room4 = new Sprite(800, 600);
                 room4.image = game.assets[ROOM4_IMAGE];
                 room4.moveTo(10, 20);
@@ -157,6 +165,7 @@ window.onload = function() {
                 Left();
                 box();
                 input();
+                button();
                 
                break;
             }
@@ -306,37 +315,44 @@ window.onload = function() {
 					
 				 
 				 
+				 
 				 	//ボタン
 				 	function button(){
+				 	
+				 	if(btr_R==0&&btr_A==1){
+				 		scene.addChild(buttonA);
+				     	scene.addChild(buttonB);
+				        scene.addChild(buttonC);
+				       	buttonC.moveTo(200,200);
+				        buttonB.moveTo(150,200);
+				        buttonA.moveTo(100,200);
+				        btr_A=0;
+				 	}else if(btr_R==0){
 				        buttonC.moveTo(200,200);
 				        buttonB.moveTo(150,200);
 				        buttonA.moveTo(100,200);
-				        scene.addChild(buttonA);
-				     	scene.addChild(buttonB);
-				        scene.addChild(buttonC);
-				        
-				        var buttonA = new Button(btnStr[btr_Ai],"dark",20,25);
-						var buttonB = new Button(btnStr[btr_Bi],"dark",20,25);
-						var buttonC = new Button(btnStr[btr_Ci],"dark",20,25);
-				  
-				        
-				        buttonA.ontouchstart = function(){
-				        btr_Ai = btr_Ai+1;
-                										}
-                	 	buttonB.ontouchstart = function(){
-				        btr_Bi = btr_Bi+1;
-                										}
-                		buttonC.ontouchstart = function(){
-				        btr_Ci = btr_Ci+1;
-                										}
+		//		        buttonA.addEventListener('click',buttonOntuch(btr_Ai);
+                	 
+        //        	 	buttonB.ontouchstart = buttonOntuch(btr_Bi);
                 		
-               		if(btr_R==0){
-               		scene.removeChild(buttonA);
-               		scene.removeChild(buttonB);
-               		scene.removeChild(buttonC);
-               		btr_R=1;
+        // 			    buttonB.ontouchstart = buttonOntuch(btr_Ci);
+				        
+               		}else{
+						buttonC.moveTo(-300,-200);
+				        buttonB.moveTo(-350,-200);
+				        buttonA.moveTo(-400,-200);
+               			btr_R=0;
                		}
                	}
+               	
+						function buttonOntuch(btr){
+							btr=btr+1;
+					    	if(btr==26){
+						       btr=0;
+						    }
+						    alert(btr);
+							
+						}
                  
             }//room
         
