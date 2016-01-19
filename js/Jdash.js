@@ -43,6 +43,7 @@ var input_I = 0;
 
 
 //ボタンに必要な変数
+var btr_SR;
 var btr_Ei=0;
 var btr_Di=0;
 var btr_Ci=0;
@@ -57,7 +58,7 @@ var buttonB = new Button(btnStr[btr_Bi],"dark",20,25);
 var buttonC = new Button(btnStr[btr_Ci],"dark",20,25);
 var buttonD = new Button(btnStr[btr_Di],"dark",20,25);
 var buttonE = new Button(btnStr[btr_Ei],"dark",20,25);
-var buttonSwi = new Button("","light",100,100);
+var buttonSwi = new Button("","light",5,5);
 /*
  * 汎用処理
  */
@@ -131,7 +132,9 @@ window.onload = function() {
         
         switch(view){
             case 1 :
+    			scene.addChild(buttonSwi);
             	btr_R=1;
+            	btr_SR=0;
                 var room1 = new Sprite(800, 600);
                 room1.image = game.assets[ROOM1_IMAGE];
                 room1.moveTo(10, 20);
@@ -228,10 +231,7 @@ window.onload = function() {
                     }
                    
                    
-             function bottom(){
-             	//  var bottom = new Sprite(45,45);
-             	//	bottom.image = game.
-             	}
+
              		
             
             return;
@@ -253,8 +253,6 @@ window.onload = function() {
                 }
             }
             function box(){
-            		buttonSwi.moveTo(-300,-300);
-            		scene.addChild(buttonSwi);
             		var box = new Sprite(200,222);
             		box.image = game.assets[box1_image];
             		if(i==0){
@@ -270,15 +268,12 @@ window.onload = function() {
             			}else{
             				i=0;
             				box.moveTo(200,400);
-            				buttonSwi.moveTo(400,350);
 				 			
             			}
             				
             		}
           
            }
-            	
-                 
                 
             
                 function Door(){
@@ -286,6 +281,7 @@ window.onload = function() {
                  door.image = game.assets[door_image];
                  door.moveTo(200, 180);
                  scene.addChild(door);
+                 
                 
                     
                     if (e === 0){
@@ -314,7 +310,12 @@ window.onload = function() {
 				 
 				 	//ボタン
 				 	function button(){
-				 	
+				 	if(btr_SR==0){
+				 		buttonSwi.moveTo(80,80);
+				 		btr_SR=1;
+				 		}else{
+				 		buttonSwi.moveTo(-80,-80);
+				 	}
 				 	if(btr_R==0&&btr_A==1){
 				 		scene.addChild(buttonA);
 				     	scene.addChild(buttonB);
