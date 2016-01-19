@@ -40,6 +40,11 @@ var ASSETS = [ ROOM1_IMAGE, ROOM2_IMAGE, ROOM3_IMAGE, ROOM4_IMAGE, ];
  */
 var game = null;
 var input_I = 0;
+
+
+//ボタンに必要な変数
+var btr_Ei=0;
+var btr_Di=0;
 var btr_Ci=0;
 var btr_Bi=0;
 var btr_Ai=0;
@@ -50,7 +55,9 @@ var btnStr =["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q"
 var buttonA = new Button(btnStr[btr_Ai],"dark",20,25);
 var buttonB = new Button(btnStr[btr_Bi],"dark",20,25);
 var buttonC = new Button(btnStr[btr_Ci],"dark",20,25);
-
+var buttonD = new Button(btnStr[btr_Di],"dark",20,25);
+var buttonE = new Button(btnStr[btr_Ei],"dark",20,25);
+var buttonSwi = new Button("","light",100,100);
 /*
  * 汎用処理
  */
@@ -152,7 +159,6 @@ window.onload = function() {
                 scene.addChild(room3);
                 Right();
                 Left();
-                Key();
                 button();
                 break;
             case 4 :
@@ -165,9 +171,9 @@ window.onload = function() {
                 Left();
                 box();
                 input();
+                Key();
                 button();
-                
-               break;
+                break;
             }
             
             //右
@@ -247,36 +253,27 @@ window.onload = function() {
                 }
             }
             function box(){
-            		if(i==0){
+            		buttonSwi.moveTo(-300,-300);
+            		scene.addChild(buttonSwi);
             		var box = new Sprite(200,222);
             		box.image = game.assets[box1_image];
-            		box.moveTo(200, 400);
+            		if(i==0){
+            			box.moveTo(200, 400);
+            		}else if(i==1){
+           				box.moveTo(500,400);
+            		}
             		scene.addChild(box);
-            		
-            		box.ontouchstart =	function box2(){
-           			if(i==0){
-           			i=1;
-           			box.moveTo(1000,1000);
-           			}
-           			var box2 = new Sprite(300,200);
-           			box2.image = game.assets[box2_image];
-           			box2.moveTo(200,400);
-           			scene.addChild(box2);
-           			box2.ontouchstart = box3();
-           			
-          		 	}
-           		 	
-            		}else if (i==1){
-            		var box2 = new Sprite(300,200);
-           			box2.image = game.assets[box2_image];
-           			box2.moveTo(250,400);
-           			scene.addChild(box2);
-           			box2.ontouchstart = box3();
+            		box.ontouchstart = function(){
+            			if(i==0){
+            				box.moveTo(500,400);
+            				i=1;
+            			}else{
+            				i=0;
+            				box.moveTo(200,400);
+            				buttonSwi.moveTo(400,350);
+				 			
             			}
-            		
-            		function box3(){
-            		
-            		
+            				
             		}
           
            }
@@ -315,7 +312,6 @@ window.onload = function() {
 					
 				 
 				 
-				 
 				 	//ボタン
 				 	function button(){
 				 	
@@ -323,39 +319,87 @@ window.onload = function() {
 				 		scene.addChild(buttonA);
 				     	scene.addChild(buttonB);
 				        scene.addChild(buttonC);
+				        scene.addChild(buttonD);
+				        scene.addChild(buttonE);
+				       	buttonE.moveTo(300,200);
+				       	buttonD.moveTo(250,200);
 				       	buttonC.moveTo(200,200);
 				        buttonB.moveTo(150,200);
 				        buttonA.moveTo(100,200);
 				        btr_A=0;
 				 	}else if(btr_R==0){
+				 		buttonE.moveTo(300,200);
+				 		buttonD.moveTo(250,200);
 				        buttonC.moveTo(200,200);
 				        buttonB.moveTo(150,200);
 				        buttonA.moveTo(100,200);
-		//		        buttonA.addEventListener('click',buttonOntuch(btr_Ai);
-                	 
-        //        	 	buttonB.ontouchstart = buttonOntuch(btr_Bi);
-                		
-        // 			    buttonB.ontouchstart = buttonOntuch(btr_Ci);
-				        
                		}else{
+               			buttonE.moveTo(-200,-200);
+               			buttonD.moveTo(-250,-200);
 						buttonC.moveTo(-300,-200);
 				        buttonB.moveTo(-350,-200);
 				        buttonA.moveTo(-400,-200);
                			btr_R=0;
                		}
                	}
-               	
-						function buttonOntuch(btr){
-							btr=btr+1;
-					    	if(btr==26){
-						       btr=0;
-						    }
-						    alert(btr);
 							
-						}
+						
                  
             }//room
-        
+            		//button識別変数
+            			buttonA.ind=1;
+						buttonB.ind=2;
+						buttonC.ind=3;
+						buttonD.ind=4;
+						buttonE.ind=5;
+		            //buttonイベント
+					buttonA.ontouchstart = buttonOntuch;
+               	 	buttonB.ontouchstart = buttonOntuch;
+         		    buttonC.ontouchstart = buttonOntuch;
+         		    buttonD.ontouchstart = buttonOntuch;
+         		    buttonE.ontouchstart = buttonOntuch;
+      			   		function buttonOntuch(){
+							switch(this.ind){
+							case 1 :
+								btr_Ai=checkInd(btr_Ai);
+								buttonA.text=btnStr[btr_Ai];
+								break;
+							case 2 :
+								btr_Bi=checkInd(btr_Bi);
+								buttonB.text=btnStr[btr_Bi];
+								break;		
+							case 3 :
+								btr_Ci=checkInd(btr_Ci);
+								buttonC.text=btnStr[btr_Ci];
+								break;
+							case 4 :
+								btr_Di=checkInd(btr_Di);
+								buttonD.text=btnStr[btr_Di];
+								break;
+							case 5 :
+								btr_Ei=checkInd(btr_Ei);
+								buttonE.text=btnStr[btr_Ei];
+								break;
+							}
+							
+							if(btnStr[btr_Ai]=="A" && btnStr[btr_Bi]=="B" && btnStr[btr_Ci]=="C" && btnStr[btr_Di]=="D" && btnStr[btr_Ei]=="E"){
+								alert("正解！");
+							}
+							
+							
+
+					    }
+						    //ボタン添え字管理
+					function checkInd(btr){
+						btr++;
+						
+						if(btr==25){
+						    btr=0;
+						 
+						}
+						    return btr;
+						}
+					
            
  
     };
