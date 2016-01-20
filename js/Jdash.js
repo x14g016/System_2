@@ -21,8 +21,11 @@ var ROOM4_IMAGE = "./images/room4.png";
 var door_image = "./images/door.png";
 var door2_image = "./images/door2.png";
 var goal_image = "./images/goal.png";
-var box1_image ="./images/box1.png"; 
-var box2_image ="./images/box2.png";
+var box1_image ="./images/box1.png";
+
+//ソファ
+var sofa_image = "./images/sofa.png"
+var cushion_image = "./images/cushion.png";
 
 //ボタン
 
@@ -78,58 +81,54 @@ window.onload = function() {
     var touchX  = null;     // タッチX座標
     var touchY  = null;     // タッチY座標
  	game.fps = 24;
-     
 
-    
+
+
    	game.preload(ASSETS);
     //矢印
-    game.preload("http://jsrun.it/assets/Y/v/p/P/YvpP5.gif");
-    game.preload("http://jsrun.it/assets/Q/E/j/P/QEjPU.gif");
     //扉
-    game.preload(door_image);
-    game.preload(door2_image);
+    game.preload(door_image,door2_image);
     //外
     game.preload(goal_image);
     //鍵
     game.preload("http://jsrun.it/assets/6/K/5/c/6K5c4.png");
     //箱
     game.preload(box1_image);
-    game.preload(box2_image);
     //矢印
-    game.preload(left_image);
-    game.preload(right_image);
-    
+    game.preload(left_image,right_image);
+
     //掲示板
     game.preload(input_image);
+    game.preload(cushion_image,sofa_image);
 
     // ゲーム開始時の処理
     game.onload = function() {
-        
-        
+
+
         var scene = game.rootScene;
         scene.backgroundColor = "black";
-        
+
         var scene = game.rootScene;
         scene.backgroundColor = "black";
-        
+
         var scene = game.rootScene;
         scene.backgroundColor = "black";
-        
+
         var scene = game.rootScene;
         scene.backgroundColor = "black";
-        
+
         //配列
         var item = Array();
-        
+
         var i = 0;
         var e = 3;
-        
+
         var view = 1;
         Room(view);
-        
+
          //部屋の絵表示
         function Room(view){
-        
+
         switch(view){
             case 1 :
     			scene.addChild(buttonSwi);
@@ -163,6 +162,7 @@ window.onload = function() {
                 Right();
                 Left();
                 button();
+                sofa();
                 break;
             case 4 :
             	btr_R=0;
@@ -178,14 +178,14 @@ window.onload = function() {
                 button();
                 break;
             }
-            
+
             //右
             function Right(){
                 var right = new Sprite(45, 45);
                     right.image = game.assets[right_image];
                     right.moveTo(740, 225);
                     scene.addChild(right);
-        
+
                 right.ontouchstart = function(){
                      switch(view){
                             case 1 :
@@ -203,15 +203,15 @@ window.onload = function() {
                             }
                         };
                 }
-        
-        
+
+
              //左
              function Left(){
                  var left = new Sprite(45, 45);
                         left.image = game.assets[left_image];
                         left.moveTo(20, 225);
                         scene.addChild(left);
-                    
+
                 left.ontouchstart = function(){
                     switch(view){
                             case 1 :
@@ -229,25 +229,25 @@ window.onload = function() {
                             }
                         };
                     }
-                   
-                   
 
-             		
-            
+
+
+
+
             return;
-            
-                    
-            
+
+
+
             function Key(){
                 if(e == 3 ){
-                 var　key = new Sprite(25, 35);
+                 var key = new Sprite(25, 35);
                  key.image = game.assets["http://jsrun.it/assets/6/K/5/c/6K5c4.png"];
                  key.moveTo(300, 400);
                  scene.addChild(key);
-                 
-                    
+
+
                     key.ontouchstart = function(){
-                        key.moveTo(30, 550); 
+                        key.moveTo(30, 550);
                         e = 0;
                     };
                 }
@@ -268,22 +268,35 @@ window.onload = function() {
             			}else{
             				i=0;
             				box.moveTo(200,400);
-				 			
+
             			}
-            				
+
             		}
-          
+
            }
-                
-            
+
+            	//ソファ
+            	function sofa(){
+            		var sofa = new Sprite(400,186);
+            		sofa.image = game.assets[sofa_image];
+            		sofa.moveTo(320,350);
+            		scene.addChild(sofa);
+            		var cushion = new Sprite(100,63);
+            		cushion.moveTo(350,395);
+            		cushion.image = game.assets[cushion_image];
+            		scene.addChild(cushion);
+
+            	}
+
+            	//扉
                 function Door(){
                  var door = new Sprite(200, 300);
                  door.image = game.assets[door_image];
                  door.moveTo(200, 180);
                  scene.addChild(door);
-                 
-                
-                    
+
+
+
                     if (e === 0){
                     door.ontouchstart = function(){
                         var door2 = new Sprite(200, 300);
@@ -299,15 +312,15 @@ window.onload = function() {
                    			 }
                    			}
 				function input(){
-					
+
 					var input = new Sprite(300,150);
 					input.image = game.assets[input_image];
 					input.moveTo(75,100);
 					scene.addChild(input);
 				}
-					
-				 
-				 
+
+
+
 				 	//ボタン
 				 	function button(){
 				 	if(btr_SR==0){
@@ -343,9 +356,9 @@ window.onload = function() {
                			btr_R=0;
                		}
                	}
-							
-						
-                 
+
+
+
             }//room
             		//button識別変数
             			buttonA.ind=1;
@@ -368,7 +381,7 @@ window.onload = function() {
 							case 2 :
 								btr_Bi=checkInd(btr_Bi);
 								buttonB.text=btnStr[btr_Bi];
-								break;		
+								break;
 							case 3 :
 								btr_Ci=checkInd(btr_Ci);
 								buttonC.text=btnStr[btr_Ci];
@@ -382,28 +395,28 @@ window.onload = function() {
 								buttonE.text=btnStr[btr_Ei];
 								break;
 							}
-							
-							if(btnStr[btr_Ai]=="A" && btnStr[btr_Bi]=="B" && btnStr[btr_Ci]=="C" && btnStr[btr_Di]=="D" && btnStr[btr_Ei]=="E"){
+
+							if(btnStr[btr_Ai]=="A" && btnStr[btr_Bi]=="H" && btnStr[btr_Ci]=="C" && btnStr[btr_Di]=="H" && btnStr[btr_Ei]=="E"){
 								alert("正解！");
 							}
-							
-							
+
+
 
 					    }
 						    //ボタン添え字管理
 					function checkInd(btr){
 						btr++;
-						
+
 						if(btr==25){
 						    btr=0;
-						 
+
 						}
 						    return btr;
 						}
-					
-           
- 
+
+
+
     };
-    
+
     game.start();
 };
