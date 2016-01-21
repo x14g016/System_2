@@ -16,6 +16,8 @@ var ROOM1_IMAGE = "./images/room.png";
 var ROOM2_IMAGE = "./images/room2.png";
 var ROOM3_IMAGE = "./images/room3.png";
 var ROOM4_IMAGE = "./images/room4.png";
+var ROOM5_IMAGE = "./images/room5.png"; 
+var ROOM6_IMAGE = "./images/room6.png";
 
 //その他
 var door_image = "./images/door.png";
@@ -37,7 +39,7 @@ var swiOff_image = "./images/switchOFF.png";
 
 
 //アセットリスト
-var ASSETS = [ ROOM1_IMAGE, ROOM2_IMAGE, ROOM3_IMAGE, ROOM4_IMAGE, ];
+var ASSETS = [ ROOM1_IMAGE, ROOM2_IMAGE, ROOM3_IMAGE, ROOM4_IMAGE, ROOM5_IMAGE,ROOM6_IMAGE];
 
 
 /*
@@ -185,15 +187,38 @@ window.onload = function() {
                 Key();
                 button();
                 break;
-            }
+            case 5 :
+            	btr_R=1;
+                var room5 = new Sprite(800, 600);
+                room5.image = game.assets[ROOM5_IMAGE];
+                room5.moveTo(10, 20);
+                scene.addChild(room5);
 
+                Right();
+                Left();
+             //   Key2();
+                button();
+                break;
+            case 6 :
+               	btr_R=1;
+                var room6 = new Sprite(800, 600);
+                room6.image = game.assets[ROOM6_IMAGE];
+                room6.moveTo(10, 20);
+                scene.addChild(room6);
+                Right();
+                Left();
+                button();
+               break;                
+                
+            }
+            
             //右
             function Right(){
                 var right = new Sprite(45, 45);
                     right.image = game.assets[right_image];
                     right.moveTo(740, 225);
                     scene.addChild(right);
-
+        
                 right.ontouchstart = function(){
                      switch(view){
                             case 1 :
@@ -206,24 +231,30 @@ window.onload = function() {
                                 Room(4);
                                 break;
                             case 4 :
-                                Room(1);
+                                Room(5);
                                break;
+                             case 5 :
+                                Room(6);
+                               break;
+                             case 6 :
+                                Room(1);
+                               break;                                                            
                             }
                         };
                 }
-
-
+        
+        
              //左
              function Left(){
                  var left = new Sprite(45, 45);
                         left.image = game.assets[left_image];
                         left.moveTo(20, 225);
                         scene.addChild(left);
-
+                    
                 left.ontouchstart = function(){
                     switch(view){
                             case 1 :
-                                Room(4);
+                                Room(6);
                                 break;
                             case 2 :
                                 Room(1);
@@ -234,10 +265,16 @@ window.onload = function() {
                             case 4 :
                                 Room(3);
                                break;
+                            case 5 :
+                            	Room(4);
+                               break;
+                            case 6 :
+                            	Room(5);
+                            	break;
                             }
                         };
                     }
-
+                   
 
 
 
