@@ -28,11 +28,13 @@ var sofa_image = "./images/sofa.png"
 var cushion_image = "./images/cushion.png";
 
 //ボタン
-
-
 var left_image ="./images/left.png";
 var right_image="./images/right.png";
 var input_image = "./images/input.png";
+
+var swiOn_image = "./images/switchON.png";
+var swiOff_image = "./images/switchOFF.png";
+
 
 //アセットリスト
 var ASSETS = [ ROOM1_IMAGE, ROOM2_IMAGE, ROOM3_IMAGE, ROOM4_IMAGE, ];
@@ -99,7 +101,12 @@ window.onload = function() {
 
     //掲示板
     game.preload(input_image);
+    
+    //ソファ
     game.preload(cushion_image,sofa_image);
+    
+    //スイッチ
+    game.preload(swiOff_image,swiOn_image);
 
     // ゲーム開始時の処理
     game.onload = function() {
@@ -120,8 +127,9 @@ window.onload = function() {
         //配列
         var item = Array();
 
-        var i = 0;
+        var box_i = 0;
         var e = 3;
+        var cushion_i = 0;
 
         var view = 1;
         Room(view);
@@ -255,18 +263,18 @@ window.onload = function() {
             function box(){
             		var box = new Sprite(200,222);
             		box.image = game.assets[box1_image];
-            		if(i==0){
+            		if(box_i==0){
             			box.moveTo(200, 400);
-            		}else if(i==1){
+            		}else if(box_i==1){
            				box.moveTo(500,400);
             		}
             		scene.addChild(box);
             		box.ontouchstart = function(){
-            			if(i==0){
+            			if(box_i==0){
             				box.moveTo(500,400);
-            				i=1;
+            				box_i=1;
             			}else{
-            				i=0;
+            				box_i=0;
             				box.moveTo(200,400);
 
             			}
@@ -275,17 +283,40 @@ window.onload = function() {
 
            }
 
-            	//ソファ
+           	//ソファ
             	function sofa(){
             		var sofa = new Sprite(400,186);
             		sofa.image = game.assets[sofa_image];
             		sofa.moveTo(320,350);
             		scene.addChild(sofa);
-            		var cushion = new Sprite(100,63);
-            		cushion.moveTo(350,395);
+            		
+            //クッション
+            		var cushion = new Sprite(150,112);
             		cushion.image = game.assets[cushion_image];
+            		if(cushion_i==0){
+            			cushion.moveTo(350,370);
+            		}else if(cushion_i==1){
+            			cushion.moveTo(500,395);
+            			}
             		scene.addChild(cushion);
+            		
+            		cushion.ontouchstart= function(){
+            			if(cushion_i==0){
+            				cushion.moveTo(500,370);
+            				cushion_i=1;
+            			} else {
+            				cushion.moveTo(350,370);
+            				cushion_i=0;
+            			}
+            				
+            		}
 
+            	}
+            	
+            	//スイッチ
+            	function b_switch(){
+            		var switch = new Sprite(80,84);
+            		switch.image = game.assets(swiOn_image)
             	}
 
             	//扉
