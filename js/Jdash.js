@@ -316,7 +316,9 @@ window.onload = function() {
             	//スイッチ
             	function b_switch(){
             		var switch = new Sprite(80,84);
-            		switch.image = game.assets(swiOn_image)
+            		switch.image = game.assets(swiOff_image)
+            		switch.moveTo(100,100);
+            		scene.addChild
             	}
 
             	//扉
