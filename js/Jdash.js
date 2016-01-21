@@ -16,6 +16,8 @@ var ROOM1_IMAGE = "./images/room.png";
 var ROOM2_IMAGE = "./images/room2.png";
 var ROOM3_IMAGE = "./images/room3.png";
 var ROOM4_IMAGE = "./images/room4.png";
+var ROOM5_IMAGE = "./images/room5.png";
+var ROOM6_IMAGE = "./images/room6.png";
 
 //その他
 var door_image = "./images/door.png";
@@ -24,6 +26,7 @@ var goal_image = "./images/goal.png";
 var box1_image ="./images/box1.png"; 
 var box2_image ="./images/box2.png";
 
+//var key2_image ="./images/key2.jpg";
 //ボタン
 
 
@@ -32,7 +35,7 @@ var right_image="./images/right.png";
 var input_image = "./images/input.png";
 
 //アセットリスト
-var ASSETS = [ ROOM1_IMAGE, ROOM2_IMAGE, ROOM3_IMAGE, ROOM4_IMAGE, ];
+var ASSETS = [ ROOM1_IMAGE, ROOM2_IMAGE, ROOM3_IMAGE, ROOM4_IMAGE, ROOM5_IMAGE, ROOM6_IMAGE, ];
 
 
 /*
@@ -100,7 +103,8 @@ window.onload = function() {
     
     //掲示板
     game.preload(input_image);
-
+    
+   // game.preload(key2_image);
     // ゲーム開始時の処理
     game.onload = function() {
         
@@ -122,6 +126,8 @@ window.onload = function() {
         
         var i = 0;
         var e = 3;
+    //    var k = 3;
+
         
         var view = 1;
         Room(view);
@@ -174,6 +180,29 @@ window.onload = function() {
                 Key();
                 button();
                 break;
+            case 5 :
+            	btr_R=1;
+                var room5 = new Sprite(800, 600);
+                room5.image = game.assets[ROOM5_IMAGE];
+                room5.moveTo(10, 20);
+                scene.addChild(room5);
+
+                Right();
+                Left();
+             //   Key2();
+                button();
+                break;
+            case 6 :
+               	btr_R=1;
+                var room6 = new Sprite(800, 600);
+                room6.image = game.assets[ROOM6_IMAGE];
+                room6.moveTo(10, 20);
+                scene.addChild(room6);
+                Right();
+                Left();
+                button();
+               break;                
+                
             }
             
             //右
@@ -195,8 +224,14 @@ window.onload = function() {
                                 Room(4);
                                 break;
                             case 4 :
-                                Room(1);
+                                Room(5);
                                break;
+                             case 5 :
+                                Room(6);
+                               break;
+                             case 6 :
+                                Room(1);
+                               break;                                                            
                             }
                         };
                 }
@@ -212,7 +247,7 @@ window.onload = function() {
                 left.ontouchstart = function(){
                     switch(view){
                             case 1 :
-                                Room(4);
+                                Room(6);
                                 break;
                             case 2 :
                                 Room(1);
@@ -223,6 +258,12 @@ window.onload = function() {
                             case 4 :
                                 Room(3);
                                break;
+                            case 5 :
+                            	Room(4);
+                               break;
+                            case 6 :
+                            	Room(5);
+                            	break;
                             }
                         };
                     }
@@ -342,8 +383,8 @@ window.onload = function() {
                			btr_R=0;
                		}
                	}
-							
-						
+
+          
                  
             }//room
             		//button識別変数
