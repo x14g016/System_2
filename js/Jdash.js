@@ -1,83 +1,93 @@
-﻿/*
- * おまじない
- */
-enchant();
+﻿
+// おまじない
+
+	enchant();
 
 /*
  * 定数
  */
 //パラメータ
-var SCREEN_WIDTH = 800; //横幅
-var SCREEN_HEIGHT =600; //縦幅
+	var SCREEN_WIDTH =800; //横幅
+	var SCREEN_HEIGHT =600; //縦幅
 
 // 画像
-//部屋
-var ROOM1_IMAGE = "./images/room.png";
-var ROOM2_IMAGE = "./images/room2.png";
-var ROOM3_IMAGE = "./images/room3.png";
-var ROOM4_IMAGE = "./images/room4.png";
-var ROOM5_IMAGE = "./images/room5.png"; 
-var ROOM6_IMAGE = "./images/room6.png";
+	//部屋
+	var ROOM1_IMAGE = "./images/room.png";
+	var ROOM2_IMAGE = "./images/room2.png";
+	var ROOM3_IMAGE = "./images/room3.png";
+	var ROOM4_IMAGE = "./images/room4.png";
+	var ROOM5_IMAGE = "./images/room5.png"; 
+	var ROOM6_IMAGE = "./images/room6.png";
 
-//その他
-var door_image = "./images/door.png";
-var door2_image = "./images/door2.png";
-var goal_image = "./images/goal.png";
-var box1_image ="./images/box1.png";
+	//扉_image
+	var door_image = "./images/door.png";
+	var door2_image = "./images/door2.png";
+	var goal_image = "./images/goal.png";
 
-//ソファ
-var sofa_image = "./images/sofa.png"
-var cushion_image = "./images/cushion.png";
+	//箱_image
+	var box1_image ="./images/box1.png";
 
-//ボタン
-var left_image ="./images/left.png";
-var right_image="./images/right.png";
-var input_image = "./images/input.png";
+	//ソファ_image
+	var sofa_image = "./images/sofa.png"
+	var cushion_image = "./images/cushion.png";
 
-var swiOn_image = "./images/switchON.png";
-var swiOff_image = "./images/switchOFF.png";
+	//ボタン_image
+	var left_image ="./images/left.png";
+	var right_image="./images/right.png";
+	var inputOn_image = "./images/inputON.png";
+	var inputOff_image= "./images/inputOFF.png";
 
-
-//アセットリスト
-var ASSETS = [ ROOM1_IMAGE, ROOM2_IMAGE, ROOM3_IMAGE, ROOM4_IMAGE, ROOM5_IMAGE,ROOM6_IMAGE];
-
-
-/*
- * グローバル変数
- */
-var game = null;
-var input_I = 0;
+	var swiOn_image = "./images/switchON.png";
+	var swiOff_image = "./images/switchOFF.png";
 
 
-//ボタンに必要な変数
-var btr_SR;
-var btr_Ei=0;
-var btr_Di=0;
-var btr_Ci=0;
-var btr_Bi=0;
-var btr_Ai=0;
-var btr_R =1;
-var btr_A =1;
-var btnStr =["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","Y","Z"];
+	//アセットリスト
+	var ASSETS = [ ROOM1_IMAGE, ROOM2_IMAGE, ROOM3_IMAGE, ROOM4_IMAGE, ROOM5_IMAGE,ROOM6_IMAGE];
 
-var buttonA = new Button(btnStr[btr_Ai],"dark",20,25);
-var buttonB = new Button(btnStr[btr_Bi],"dark",20,25);
-var buttonC = new Button(btnStr[btr_Ci],"dark",20,25);
-var buttonD = new Button(btnStr[btr_Di],"dark",20,25);
-var buttonE = new Button(btnStr[btr_Ei],"dark",20,25);
-var buttonSwi = new Button("","light",5,5);
-/*
- * 汎用処理
- */
-// ランダム値生成
+
+	/*
+	 * グローバル変数
+	 */
+	var game = null;
+	var input_I = 0;
+	var swi_i = 0;
+
+
+	//ボタン文字の添え字
+	var btr_Ei=0;
+	var btr_Di=0;
+	var btr_Ci=0;
+	var btr_Bi=0;
+	var btr_Ai=0;
+
+	//ボタンの部屋flag
+	var btr_R =1;
+
+	//ボタン生成flag
+	var btr_A =1;
+	var btnStr =["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","Y","Z"];
+
+	//掲示板flag
+	var input_flag = 0;
+	
+	//ボタン生成
+	var buttonA = new Button(btnStr[btr_Ai],"dark",20,25);
+	var buttonB = new Button(btnStr[btr_Bi],"dark",20,25);
+	var buttonC = new Button(btnStr[btr_Ci],"dark",20,25);
+	var buttonD = new Button(btnStr[btr_Di],"dark",20,25);
+	var buttonE = new Button(btnStr[btr_Ei],"dark",20,25);
+	/*
+	 * 汎用処理
+	 */
+	// ランダム値生成
 var randfloat = function(min, max) {
     return Math.random()*(max-min)+min;
 };
 
 
-/*
- * メイン処理
- */
+	/*
+	 * メイン処理
+	 */
 window.onload = function() {
     // ゲームオブジェクトの生成
     game = new Game(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -141,7 +151,6 @@ window.onload = function() {
 
         switch(view){
             case 1 :
-    			scene.addChild(buttonSwi);
             	btr_R=1;
             	btr_SR=0;
                 var room1 = new Sprite(800, 600);
@@ -162,6 +171,7 @@ window.onload = function() {
                 Right();
                 Left();
 				button();
+				b_switch();
                 break;
             case 3 :
             	btr_R=1;
@@ -297,6 +307,8 @@ window.onload = function() {
                     };
                 }
             }
+            
+            //箱
             function box(){
             		var box = new Sprite(200,222);
             		box.image = game.assets[box1_image];
@@ -352,11 +364,26 @@ window.onload = function() {
             	
             	//スイッチ
             	function b_switch(){
-            		var switch = new Sprite(80,84);
-            		switch.image = game.assets(swiOff_image)
-            		switch.moveTo(100,100);
-            		scene.addChild
-            	}
+            		var b_switch = new Sprite(80,84);
+            		//画面遷移時のON/OFF切り替え
+            		if(swi_i==0){
+            			b_switch.image = game.assets[swiOff_image];
+            		}else{
+            			b_switch.image = game.assets[swiOn_image];
+            		}
+            		b_switch.moveTo(200, 180);
+            		scene.addChild(b_switch);
+            		b_switch.ontouchstart = function(){
+            			if(swi_i==0){
+            				input_flag=1;
+            				swi_i=1;
+            				b_switch.image = game.assets[swiOn_image];
+            			}else{
+	            			swi_i=0;
+	                  		b_switch.image = game.assets[swiOff_image];
+            				}
+            			}
+           		 }
 
             	//扉
                 function Door(){
@@ -382,9 +409,13 @@ window.onload = function() {
                    			 }
                    			}
 				function input(){
-
+					
 					var input = new Sprite(300,150);
-					input.image = game.assets[input_image];
+					if(input_flag==1;){
+					input.image = game.assets[inputOn_image];
+					}else{
+					input.image = game.assets[inputOff_image]
+					}
 					input.moveTo(75,100);
 					scene.addChild(input);
 				}
@@ -393,12 +424,6 @@ window.onload = function() {
 
 				 	//ボタン
 				 	function button(){
-				 	if(btr_SR==0){
-				 		buttonSwi.moveTo(80,80);
-				 		btr_SR=1;
-				 		}else{
-				 		buttonSwi.moveTo(-80,-80);
-				 	}
 				 	if(btr_R==0&&btr_A==1){
 				 		scene.addChild(buttonA);
 				     	scene.addChild(buttonB);
