@@ -18,7 +18,10 @@
 	var ROOM4_IMAGE = "./images/room4.png";
 	var ROOM5_IMAGE = "./images/room5.png"; 
 	var ROOM6_IMAGE = "./images/room6.png";
-
+	
+	//鍵
+	var key_image="./images/key.png";
+	
 	//扉_image
 	var door_image = "./images/door.png";
 	var door2_image = "./images/door2.png";
@@ -105,14 +108,14 @@ window.onload = function() {
     //外
     game.preload(goal_image);
     //鍵
-    game.preload("http://jsrun.it/assets/6/K/5/c/6K5c4.png");
+    game.preload(key_image);
     //箱
     game.preload(box1_image);
     //矢印
     game.preload(left_image,right_image);
 
     //掲示板
-    game.preload(input_image);
+    game.preload(inputOn_image,inputOff_image);
     
     //ソファ
     game.preload(cushion_image,sofa_image);
@@ -151,7 +154,6 @@ window.onload = function() {
 
         switch(view){
             case 1 :
-            	btr_R=1;
             	btr_SR=0;
                 var room1 = new Sprite(800, 600);
                 room1.image = game.assets[ROOM1_IMAGE];
@@ -160,32 +162,29 @@ window.onload = function() {
                 Right();
                 Left();
                 Door();
-                button();
+                button(1);
                 break;
             case 2 :
-            	btr_R=1;
                 var room2 = new Sprite(800, 600);
                 room2.image = game.assets[ROOM2_IMAGE];
                 room2.moveTo(10, 20);
                 scene.addChild(room2);
                 Right();
                 Left();
-				button();
+				button(1);
 				b_switch();
                 break;
             case 3 :
-            	btr_R=1;
                 var room3 = new Sprite(800, 600);
                 room3.image = game.assets[ROOM3_IMAGE];
                 room3.moveTo(10, 20);
                 scene.addChild(room3);
                 Right();
                 Left();
-                button();
+                button(1);
                 sofa();
                 break;
             case 4 :
-            	btr_R=0;
                 var room4 = new Sprite(800, 600);
                 room4.image = game.assets[ROOM4_IMAGE];
                 room4.moveTo(10, 20);
@@ -195,7 +194,7 @@ window.onload = function() {
                 box();
                 input();
                 Key();
-                button();
+                button(0);
                 break;
             case 5 :
             	btr_R=1;
@@ -296,11 +295,7 @@ window.onload = function() {
             function Key(){
                 if(e == 3 ){
                  var key = new Sprite(25, 35);
-                 key.image = game.assets["http://jsrun.it/assets/6/K/5/c/6K5c4.png"];
-                 key.moveTo(300, 400);
-                 scene.addChild(key);
-
-
+                 addObj(key,300,400,key_image);
                     key.ontouchstart = function(){
                         key.moveTo(30, 550);
                         e = 0;
@@ -313,11 +308,10 @@ window.onload = function() {
             		var box = new Sprite(200,222);
             		box.image = game.assets[box1_image];
             		if(box_i==0){
-            			box.moveTo(200, 400);
+            			addObj(box,200,400,box1_image);
             		}else if(box_i==1){
-           				box.moveTo(500,400);
+            			addObj(box,500,400,box1_image);
             		}
-            		scene.addChild(box);
             		box.ontouchstart = function(){
             			if(box_i==0){
             				box.moveTo(500,400);
@@ -335,9 +329,7 @@ window.onload = function() {
            	//ソファ
             	function sofa(){
             		var sofa = new Sprite(400,186);
-            		sofa.image = game.assets[sofa_image];
-            		sofa.moveTo(320,350);
-            		scene.addChild(sofa);
+            		addObj(sofa,320,350,sofa_image);
             		
             //クッション
             		var cushion = new Sprite(150,112);
@@ -367,18 +359,17 @@ window.onload = function() {
             		var b_switch = new Sprite(80,84);
             		//画面遷移時のON/OFF切り替え
             		if(swi_i==0){
-            			b_switch.image = game.assets[swiOff_image];
+            			addObj(b_switch,200,180,swiOff_image);
             		}else{
-            			b_switch.image = game.assets[swiOn_image];
+            			addObj(b_switch,200,180,swiOn_image);
             		}
-            		b_switch.moveTo(200, 180);
-            		scene.addChild(b_switch);
             		b_switch.ontouchstart = function(){
             			if(swi_i==0){
             				input_flag=1;
             				swi_i=1;
             				b_switch.image = game.assets[swiOn_image];
             			}else{
+            				input_flag=0;
 	            			swi_i=0;
 	                  		b_switch.image = game.assets[swiOff_image];
             				}
@@ -388,69 +379,36 @@ window.onload = function() {
             	//扉
                 function Door(){
                  var door = new Sprite(200, 300);
-                 door.image = game.assets[door_image];
-                 door.moveTo(200, 180);
-                 scene.addChild(door);
-
-
+                 addObj(door,200,180,door_image);
 
                     if (e === 0){
                     door.ontouchstart = function(){
                         var door2 = new Sprite(200, 300);
-                        door2.image = game.assets[door2_image];
-                        door2.moveTo(200, 180);
-                        scene.addChild(door2);
+                        addObj(door2,200,180,door2_image);
                         var miti = new Sprite(200, 300);
-                        miti.image = game.assets[goal_image];
-                        miti.moveTo(265, 163);
-			window.location.href = 'https://www.google.co.jp/';
-                        scene.addChild(miti);
-                 			   }
+                        addObj(miti,265,163,goal_image);
+					    	   }
                    			 }
                    			}
 				function input(){
-					
 					var input = new Sprite(300,150);
-					if(input_flag==1;){
-					input.image = game.assets[inputOn_image];
+					if(input_flag==1){
+						addObj(input,75,100,inputOn_image);
 					}else{
-					input.image = game.assets[inputOff_image]
+						addObj(input,75,100,inputOff_image);
 					}
-					input.moveTo(75,100);
-					scene.addChild(input);
 				}
 
 
 
 				 	//ボタン
-				 	function button(){
-				 	if(btr_R==0&&btr_A==1){
-				 		scene.addChild(buttonA);
-				     	scene.addChild(buttonB);
-				        scene.addChild(buttonC);
-				        scene.addChild(buttonD);
-				        scene.addChild(buttonE);
-				       	buttonE.moveTo(300,200);
-				       	buttonD.moveTo(250,200);
-				       	buttonC.moveTo(200,200);
-				        buttonB.moveTo(150,200);
-				        buttonA.moveTo(100,200);
-				        btr_A=0;
-				 	}else if(btr_R==0){
-				 		buttonE.moveTo(300,200);
-				 		buttonD.moveTo(250,200);
-				        buttonC.moveTo(200,200);
-				        buttonB.moveTo(150,200);
-				        buttonA.moveTo(100,200);
-               		}else{
-               			buttonE.moveTo(-200,-200);
-               			buttonD.moveTo(-250,-200);
-						buttonC.moveTo(-300,-200);
-				        buttonB.moveTo(-350,-200);
-				        buttonA.moveTo(-400,-200);
-               			btr_R=0;
+				 	function button(A){
+						addButton(buttonA,300,200,A);
+				 		addButton(buttonB,250,200,A);
+				 		addButton(buttonC,200,200,A);
+				 		addButton(buttonD,150,200,A);
+				 		addButton(buttonE,100,200,A);
                		}
-               	}
 
 
 
@@ -461,13 +419,16 @@ window.onload = function() {
 						buttonC.ind=3;
 						buttonD.ind=4;
 						buttonE.ind=5;
-		            //buttonイベント
+		            
+				//buttonイベント
 					buttonA.ontouchstart = buttonOntuch;
                	 	buttonB.ontouchstart = buttonOntuch;
          		    buttonC.ontouchstart = buttonOntuch;
          		    buttonD.ontouchstart = buttonOntuch;
          		    buttonE.ontouchstart = buttonOntuch;
-      			   		function buttonOntuch(){
+      		
+      			//buttonクリック処理	
+      		   		function buttonOntuch(){
 							switch(this.ind){
 							case 1 :
 								btr_Ai=checkInd(btr_Ai);
@@ -498,6 +459,16 @@ window.onload = function() {
 
 
 					    }
+					//オブジェクト追加  addObj(オブジェクトインスタンス,x座標,y座標,画像)
+					function addObj(ins,x,y,image){
+						if(image!=false){
+							ins.image =game.assets[image];
+						}
+							ins.moveTo(x,y);
+							scene.addChild(ins);
+						
+					}
+					    
 						    //ボタン添え字管理
 					function checkInd(btr){
 						btr++;
@@ -508,6 +479,19 @@ window.onload = function() {
 						}
 						    return btr;
 						}
+
+				//  ボタン追加 addButton(ボタンインスタンス,x座標,y座標,画面追加[0]/否追加[1])
+					function addButton(button,x,y,flag){
+						if(flag==0&&btr_A<6){
+				 			scene.addChild(button);
+			      		button.moveTo(x,y);
+				        	btr_A++;
+				 		}else if(flag==0){
+				 			button.moveTo(x,y);
+	             		}else{
+	        	   			button.moveTo(-(x),-(y));
+	               		}
+    		    }
 
 
 
