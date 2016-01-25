@@ -18,6 +18,7 @@
 	var ROOM4_IMAGE = "./images/room4.png";
 	var ROOM5_IMAGE = "./images/room5.png"; 
 	var ROOM6_IMAGE = "./images/room6.png";
+	var ROOM7_IMAGE = "./images/room7.png";
 	
 	//鍵
 	var key_image="./images/key.png";
@@ -45,7 +46,7 @@
 
 
 	//アセットリスト
-	var ASSETS = [ ROOM1_IMAGE, ROOM2_IMAGE, ROOM3_IMAGE, ROOM4_IMAGE, ROOM5_IMAGE,ROOM6_IMAGE];
+	var ASSETS = [ ROOM1_IMAGE, ROOM2_IMAGE, ROOM3_IMAGE, ROOM4_IMAGE, ROOM5_IMAGE,ROOM6_IMAGE,ROOM7_IMAGE];
 
 
 	/*
@@ -54,6 +55,7 @@
 	var game = null;
 	var input_I = 0;
 	var swi_i = 0;
+	var room_flag=0;
 
 
 	//ボタン文字の添え字
@@ -77,8 +79,7 @@
 	var buttonA = new Button(btnStr[btr_Ai],"dark",20,25);
 	var buttonB = new Button(btnStr[btr_Bi],"dark",20,25);
 	var buttonC = new Button(btnStr[btr_Ci],"dark",20,25);
-	var buttonD = new Button(btnStr[btr_Di],"dark",20,25);
-	var buttonE = new Button(btnStr[btr_Ei],"dark",20,25);
+	var buttonD = new Button("送信","light",30,30);
 	/*
 	 * 汎用処理
 	 */
@@ -156,9 +157,7 @@ window.onload = function() {
             case 1 :
             	btr_SR=0;
                 var room1 = new Sprite(800, 600);
-                room1.image = game.assets[ROOM1_IMAGE];
-                room1.moveTo(10, 20);
-                scene.addChild(room1);
+                addObj(room1,10,20,ROOM1_IMAGE);
                 Right();
                 Left();
                 Door();
@@ -166,9 +165,11 @@ window.onload = function() {
                 break;
             case 2 :
                 var room2 = new Sprite(800, 600);
-                room2.image = game.assets[ROOM2_IMAGE];
-                room2.moveTo(10, 20);
-                scene.addChild(room2);
+                if(room_flag==0){
+                addObj(room2,10,20,ROOM2_IMAGE);
+                }else{
+                addObj(room2,10,20,ROOM7_IMAGE);
+                }
                 Right();
                 Left();
 				button(1);
@@ -176,9 +177,7 @@ window.onload = function() {
                 break;
             case 3 :
                 var room3 = new Sprite(800, 600);
-                room3.image = game.assets[ROOM3_IMAGE];
-                room3.moveTo(10, 20);
-                scene.addChild(room3);
+                addObj(room3,10,20,ROOM3_IMAGE);
                 Right();
                 Left();
                 button(1);
@@ -186,9 +185,7 @@ window.onload = function() {
                 break;
             case 4 :
                 var room4 = new Sprite(800, 600);
-                room4.image = game.assets[ROOM4_IMAGE];
-                room4.moveTo(10, 20);
-                scene.addChild(room4);
+                addObj(room4,10,20,ROOM4_IMAGE);
                 Right();
                 Left();
                 box();
@@ -199,21 +196,17 @@ window.onload = function() {
             case 5 :
             	btr_R=1;
                 var room5 = new Sprite(800, 600);
-                room5.image = game.assets[ROOM5_IMAGE];
-                room5.moveTo(10, 20);
-                scene.addChild(room5);
+                addObj(room5,10,20,ROOM5_IMAGE);
 
                 Right();
                 Left();
-             //   Key2();
+             //  Key2();
                 button();
                 break;
             case 6 :
                	btr_R=1;
                 var room6 = new Sprite(800, 600);
-                room6.image = game.assets[ROOM6_IMAGE];
-                room6.moveTo(10, 20);
-                scene.addChild(room6);
+                addObj(room6,10,20,ROOM6_IMAGE);
                 Right();
                 Left();
                 button();
@@ -224,9 +217,7 @@ window.onload = function() {
             //右
             function Right(){
                 var right = new Sprite(45, 45);
-                    right.image = game.assets[right_image];
-                    right.moveTo(740, 225);
-                    scene.addChild(right);
+                	addObj(right,740,225,right_image);
         
                 right.ontouchstart = function(){
                      switch(view){
@@ -256,9 +247,7 @@ window.onload = function() {
              //左
              function Left(){
                  var left = new Sprite(45, 45);
-                        left.image = game.assets[left_image];
-                        left.moveTo(20, 225);
-                        scene.addChild(left);
+                 		addObj(left,20,225,left_image);
                     
                 left.ontouchstart = function(){
                     switch(view){
@@ -366,10 +355,12 @@ window.onload = function() {
             		b_switch.ontouchstart = function(){
             			if(swi_i==0){
             				input_flag=1;
+            				room_flag=1;
             				swi_i=1;
             				b_switch.image = game.assets[swiOn_image];
             			}else{
             				input_flag=0;
+            				room_flag=0;
 	            			swi_i=0;
 	                  		b_switch.image = game.assets[swiOff_image];
             				}
@@ -403,11 +394,10 @@ window.onload = function() {
 
 				 	//ボタン
 				 	function button(A){
-						addButton(buttonA,300,200,A);
-				 		addButton(buttonB,250,200,A);
+						addButton(buttonD,270,200,A);
 				 		addButton(buttonC,200,200,A);
-				 		addButton(buttonD,150,200,A);
-				 		addButton(buttonE,100,200,A);
+				 		addButton(buttonB,150,200,A);
+				 		addButton(buttonA,100,200,A);
                		}
 
 
@@ -418,14 +408,21 @@ window.onload = function() {
 						buttonB.ind=2;
 						buttonC.ind=3;
 						buttonD.ind=4;
-						buttonE.ind=5;
 		            
 				//buttonイベント
 					buttonA.ontouchstart = buttonOntuch;
                	 	buttonB.ontouchstart = buttonOntuch;
          		    buttonC.ontouchstart = buttonOntuch;
-         		    buttonD.ontouchstart = buttonOntuch;
-         		    buttonE.ontouchstart = buttonOntuch;
+         		    buttonD.ontouchstart = function(){
+         		   	
+         			if(btnStr[btr_Ai]=="N" && btnStr[btr_Bi]=="H" && btnStr[btr_Ci]=="L"){
+							alert("正解です。");
+						}else{
+							alert("違います。");
+         		   
+         		    }
+         		   }
+         		    
       		
       			//buttonクリック処理	
       		   		function buttonOntuch(){
@@ -452,9 +449,7 @@ window.onload = function() {
 								break;
 							}
 
-							if(btnStr[btr_Ai]=="A" && btnStr[btr_Bi]=="H" && btnStr[btr_Ci]=="C" && btnStr[btr_Di]=="H" && btnStr[btr_Ei]=="E"){
-								alert("正解！");
-							}
+
 
 
 
@@ -482,7 +477,7 @@ window.onload = function() {
 
 				//  ボタン追加 addButton(ボタンインスタンス,x座標,y座標,画面追加[0]/否追加[1])
 					function addButton(button,x,y,flag){
-						if(flag==0&&btr_A<6){
+						if(flag==0&&btr_A<5){
 				 			scene.addChild(button);
 			      		button.moveTo(x,y);
 				        	btr_A++;
