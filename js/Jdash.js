@@ -12,37 +12,37 @@
 
 // 画像
 	//部屋
-	var ROOM1_IMAGE = "./images/room.png";
-	var ROOM2_IMAGE = "./images/room2.png";
-	var ROOM3_IMAGE = "./images/room3.png";
-	var ROOM4_IMAGE = "./images/room4.png";
-	var ROOM5_IMAGE = "./images/room5.png"; 
-	var ROOM6_IMAGE = "./images/room6.png";
-	var ROOM7_IMAGE = "./images/room7.png";
+	var ROOM1_IMAGE = "./images_n/room.png";
+	var ROOM2_IMAGE = "./images_n/room2.png";
+	var ROOM3_IMAGE = "./images_n/room3.png";
+	var ROOM4_IMAGE = "./images_n/room4.png";
+	var ROOM5_IMAGE = "./images_n/room5.png"; 
+	var ROOM6_IMAGE = "./images_n/room6.png";
+	var ROOM7_IMAGE = "./images_n/room7.png";
 	
 	//鍵
-	var key_image="./images/key.png";
+	var key_image="./images_n/key.png";
 	
 	//扉_image
-	var door_image = "./images/door.png";
-	var door2_image = "./images/door2.png";
-	var goal_image = "./images/goal.png";
+	var door_image = "./images_n/door.png";
+	var door2_image = "./images_n/door2.png";
+	var goal_image = "./images_n/goal.png";
 
 	//箱_image
-	var box1_image ="./images/box1.png";
+	var box1_image ="./images_n/box1.png";
 
 	//ソファ_image
-	var sofa_image = "./images/sofa.png"
-	var cushion_image = "./images/cushion.png";
+	var sofa_image = "./images_n/sofa.png"
+	var cushion_image = "./images_n/cushion.png";
 
 	//ボタン_image
-	var left_image ="./images/left.png";
-	var right_image="./images/right.png";
-	var inputOn_image = "./images/inputON.png";
-	var inputOff_image= "./images/inputOFF.png";
+	var left_image ="./images_n/left.png";
+	var right_image="./images_n/right.png";
+	var inputOn_image = "./images_n/inputON.png";
+	var inputOff_image= "./images_n/inputOFF.png";
 
-	var swiOn_image = "./images/switchON.png";
-	var swiOff_image = "./images/switchOFF.png";
+	var swiOn_image = "./images_n/switchON.png";
+	var swiOff_image = "./images_n/switchOFF.png";
 
 
 	//アセットリスト
@@ -415,7 +415,7 @@ window.onload = function() {
          		    buttonC.ontouchstart = buttonOntuch;
          		    buttonD.ontouchstart = function(){
          		   	
-         			if(btnStr[btr_Ai]=="N" && btnStr[btr_Bi]=="H" && btnStr[btr_Ci]=="L"){
+         			if(btnStr[btr_Ai]=="H" && btnStr[btr_Bi]=="N" && btnStr[btr_Ci]=="L"){
 							alert("正解です。");
 						}else{
 							alert("違います。");
