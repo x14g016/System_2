@@ -61,6 +61,29 @@ var buttonC = new Button(btnStr[btr_Ci],"dark",20,25);
 var buttonD = new Button(btnStr[btr_Di],"dark",20,25);
 var buttonE = new Button(btnStr[btr_Ei],"dark",20,25);
 var buttonSwi = new Button("","light",100,100);
+
+
+
+//nボタン
+var btr_nDi=0;
+var btr_nCi=0;
+var btr_nBi=0;
+var btr_nAi=0;
+var btr_nR =1;
+var btr_nA =1;
+var btnStr1 =["0","1","2","3","4","5","6","7","8","9"];
+
+var buttonA1 = new Button(btnStr1[btr_nAi],myTheme1);
+var buttonB1 = new Button(btnStr1[btr_nBi],myTheme1);
+var buttonC1 = new Button(btnStr1[btr_nCi],myTheme2);
+var buttonD1 = new Button(btnStr1[btr_nDi],myTheme2);
+
+
+
+
+
+
+
 /*
  * 汎用処理
  */
@@ -138,6 +161,7 @@ window.onload = function() {
         switch(view){
             case 1 :
             	btr_R=1;
+            	btr_nR=1;
                 var room1 = new Sprite(800, 600);
                 room1.image = game.assets[ROOM1_IMAGE];
                 room1.moveTo(10, 20);
@@ -146,9 +170,11 @@ window.onload = function() {
                 Left();
                 Door();
                 button();
+                button_int();
                 break;
             case 2 :
             	btr_R=1;
+            	btr_nR=1;
                 var room2 = new Sprite(800, 600);
                 room2.image = game.assets[ROOM2_IMAGE];
                 room2.moveTo(10, 20);
@@ -156,9 +182,11 @@ window.onload = function() {
                 Right();
                 Left();
 				button();
+                button_int();
                 break;
             case 3 :
             	btr_R=1;
+            	btr_nR=1;
                 var room3 = new Sprite(800, 600);
                 room3.image = game.assets[ROOM3_IMAGE];
                 room3.moveTo(10, 20);
@@ -166,9 +194,11 @@ window.onload = function() {
                 Right();
                 Left();
                 button();
+                button_int();
                 break;
             case 4 :
             	btr_R=0;
+            	btr_nR=1;
                 var room4 = new Sprite(800, 600);
                 room4.image = game.assets[ROOM4_IMAGE];
                 room4.moveTo(10, 20);
@@ -179,21 +209,24 @@ window.onload = function() {
                 input();
                 Key();
                 button();
+                button_int();
                 break;
             case 5 :
             	btr_R=1;
+            	btr_nR=1;
                 var room5 = new Sprite(800, 600);
                 room5.image = game.assets[ROOM5_IMAGE];
                 room5.moveTo(10, 20);
                 scene.addChild(room5);
-
                 Right();
                 Left();
              //   Key2();
                 button();
+                button_int();
                 break;
             case 6 :
                	btr_R=1;
+            	btr_nR=0;
                 var room6 = new Sprite(800, 600);
                 room6.image = game.assets[ROOM6_IMAGE];
                 room6.moveTo(10, 20);
@@ -201,6 +234,7 @@ window.onload = function() {
                 Right();
                 Left();
                 button();
+                button_int();
                break;                
                 
             }
@@ -350,6 +384,24 @@ window.onload = function() {
 					input.moveTo(75,100);
 					scene.addChild(input);
 				}
+				
+var myTheme1 = {
+		normal : {
+			background:{
+				 type: 'linear-gradient', start: '#FF0000', end: '#FF0000'
+			}
+		}
+}
+
+var myTheme2 = {
+		normal : {
+			background:{
+				 type: 'linear-gradient', start: '#2E9AFE', end: '#2E9AFE'
+			}
+		}
+}
+
+
 					
 				 
 				 
@@ -381,6 +433,34 @@ window.onload = function() {
 				        buttonB.moveTo(-350,-200);
 				        buttonA.moveTo(-400,-200);
                			btr_R=0;
+               		}
+               	}
+               	
+               	
+               	function button_int(){
+				 	
+				 	if(btr_nR==0&&btr_nA==1){
+				 		scene.addChild(buttonA1);
+				     	scene.addChild(buttonB1);
+				        scene.addChild(buttonC1);
+				        scene.addChild(buttonD1);
+				        
+				       	buttonD1.moveTo(250,200);
+				       	buttonC1.moveTo(200,200);
+				        buttonB1.moveTo(150,200);
+				        buttonA1.moveTo(100,200);
+				        btr_nA=0;
+				 	}else if(btr_nR==0){
+				 		buttonD1.moveTo(250,200);
+				        buttonC1.moveTo(200,200);
+				        buttonB1.moveTo(150,200);
+				        buttonA1.moveTo(100,200);
+               		}else{
+               			buttonD1.moveTo(-250,-200);
+						buttonC1.moveTo(-300,-200);
+				        buttonB1.moveTo(-350,-200);
+				        buttonA1.moveTo(-400,-200);
+               			btr_nR=0;
                		}
                	}
 
@@ -430,6 +510,56 @@ window.onload = function() {
 							
 
 					    }
+					    
+            			buttonA1.ind=1;
+						buttonB1.ind=2;
+						buttonC1.ind=3;
+						buttonD1.ind=4;
+		            //buttonイベント
+					buttonA1.ontouchstart = buttonOntuch;
+               	 	buttonB1.ontouchstart = buttonOntuch;
+         		    buttonC1.ontouchstart = buttonOntuch;
+         		    buttonD1.ontouchstart = buttonOntuch;
+
+      			   		function buttonOntuch(){
+							switch(this.ind){
+							case 1 :
+								btr_nAi=checkInd(btr_nAi);
+								buttonA1.text=btnStr1[btr_nAi];
+								break;
+							case 2 :
+								btr_nBi=checkInd(btr_nBi);
+								buttonB1.text=btnStr1[btr_nBi];
+								break;		
+							case 3 :
+								btr_nCi=checkInd(btr_nCi);
+								buttonC1.text=btnStr1[btr_nCi];
+								break;
+							case 4 :
+								btr_nDi=checkInd(btr_nDi);
+								buttonD1.text=btnStr1[btr_nDi];
+								break;
+							}
+							
+							if(btnStr1[btr_nAi]=="1" && btnStr1[btr_nBi]=="2" && btnStr1[btr_nCi]=="1" && btnStr1[btr_nDi]=="4"){
+								alert("正解！");
+							}
+							
+					    }
+					    
+				function checkInd(btr){
+						btr++;
+						
+						if(btr==9){
+						    btr=0;
+						 
+						}
+						    return btr;
+						}
+					
+					    
+					    
+					    
 						    //ボタン添え字管理
 					function checkInd(btr){
 						btr++;
