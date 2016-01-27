@@ -72,21 +72,38 @@ var buttonD = new Button(btnStr[btr_Di],"dark",20,25);
 var buttonE = new Button(btnStr[btr_Ei],"dark",20,25);
 var buttonSwi = new Button("","light",100,100);
 
-//var myTheme1 = {
-//		normal : {
-//			background:{
-//				 type: 'linear-gradient', start: '#FF0000', end: '#FF0000'
-//			}
-//		}
-//}
-
-//var myTheme2 = {
-//		normal : {
-//			background:{
-//				 type: 'linear-gradient', start: '#2E9AFE', end: '#2E9AFE'
-//			}
-//		}
-//}
+  var myTheme1 = {
+            normal : { 
+                color : '#000000',
+                background: { type: 'linear-gradient', start: '#ff0000', end: '#ff0000' }, // ボタンのグラデーションの設定
+                border: { color: 'black', width: 10, type: 'solid' }, // 枠の部分の設定
+                textShadow: { offsetX: 0.0, offsetY: 0.0, blur: '0px', color: '#F00' }, // テキストの影
+                boxShadow: { offsetX: 0, offsetY: 0, blur: '0px', color: 'rgba(0, 0, 0, 0)' } // ボタンの影
+            },
+            active : { 
+                color : '#000000',
+                background: { type: 'linear-gradient', start: '#ff0000', end: '#ff0000' },
+                border: { color: '#ff0000', width: 1, type: 'solid' },
+                textShadow: { offsetX: 0.0, offsetY: 0.0, blur: '0px', color: '#F00' },
+                boxShadow: { offsetX: 0, offsetY: 0, blur: '0px', color: 'rgba(0, 0, 0, 0)' }
+            }
+        }
+  var myTheme2 = {
+            normal : { 
+                color : '#000000',
+                background: { type: 'linear-gradient', start: '#ff0000', end: '#ff0000' }, // ボタンのグラデーションの設定
+                border: { color: '#ff0000', width: 1, type: 'solid' }, // 枠の部分の設定
+                textShadow: { offsetX: 0.0, offsetY: 0.0, blur: '0px', color: '#F00' }, // テキストの影
+                boxShadow: { offsetX: 0, offsetY: 0, blur: '0px', color: 'rgba(0, 0, 0, 0)' } // ボタンの影
+            },
+            active : { 
+                color : '#000000',
+                background: { type: 'linear-gradient', start: '#ff0000', end: '#ff0000' },
+                border: { color: '#ff0000', width: 1, type: 'solid' },
+                textShadow: { offsetX: 0.0, offsetY: 0.0, blur: '0px', color: '#F00' },
+                boxShadow: { offsetX: 0, offsetY: 0, blur: '0px', color: 'rgba(0, 0, 0, 0)' }
+            }
+        }
 
 
 
@@ -99,10 +116,10 @@ var btr_nR =1;
 var btr_nA =1;
 var btnStr1 =["0","1","2","3","4","5","6","7","8","9"];
 
-var buttonA1 = new Button(btnStr1[btr_nAi],"dark",20,25);
-var buttonB1 = new Button(btnStr1[btr_nBi],"dark",25,25);
-var buttonC1 = new Button(btnStr1[btr_nCi],"dark",25,25);
-var buttonD1 = new Button(btnStr1[btr_nDi],"dark",25,25);
+var buttonA1 = new Button(btnStr1[btr_nAi],myTheme1,100,100);
+var buttonB1 = new Button(btnStr1[btr_nBi],myTheme1,100,100);
+var buttonC1 = new Button(btnStr1[btr_nCi],myTheme2,100,100);
+var buttonD1 = new Button(btnStr1[btr_nDi],myTheme2,100,100);
 
 
 
@@ -229,7 +246,7 @@ window.onload = function() {
                 Left();
                 Door();
                 button(1);
-                button_int();
+                button_int(1);
                 break;
             case 2 :
             	btr_nR=1;
@@ -242,6 +259,7 @@ window.onload = function() {
                 Right();
                 Left();
 				button(1);
+				button_int(1);
 				b_switch();
                 break;
             case 3 :
@@ -251,6 +269,7 @@ window.onload = function() {
                 Right();
                 Left();
                 button(1);
+                button_int(1);
                 sofa();
                 break;
             case 4 :
@@ -263,6 +282,7 @@ window.onload = function() {
                 input();
                 Key();
                 button(0);
+                button_int(1);
                 break;
             case 5 :
             	btr_nR=1;
@@ -273,8 +293,8 @@ window.onload = function() {
                 Right();
                 Left();
              //   Key2();
-                button();
-                button_int();
+                button(1);
+                button_int(1);
                 break;
             case 6 :
             	btr_nR=0;
@@ -284,8 +304,8 @@ window.onload = function() {
                 scene.addChild(room6);
                 Right();
                 Left();
-                button();
-                button_int();
+                button(1);
+                button_int(0);
                break;   
             }
           
@@ -473,7 +493,7 @@ window.onload = function() {
 
 
 
-				 	//ボタン
+				 	//アルファベットボタン
 				 	function button(A){
 						addButton(buttonD,270,200,A);
 				 		addButton(buttonC,200,200,A);
@@ -483,54 +503,49 @@ window.onload = function() {
 
                	
                	
-               	
-               	function button_int(){
-				 	
-				 	if(btr_nR==0&&btr_nA==1){
-				 		scene.addChild(buttonA1);
-				     	scene.addChild(buttonB1);
-				        scene.addChild(buttonC1);
-				        scene.addChild(buttonD1);
-				        
-				       	buttonD1.moveTo(250,200);
-				       	buttonC1.moveTo(200,200);
-				        buttonB1.moveTo(150,200);
-				        buttonA1.moveTo(100,200);
-				        btr_nA=0;
-				 	}else if(btr_nR==0){
-				 		buttonD1.moveTo(250,200);
-				        buttonC1.moveTo(200,200);
-				        buttonB1.moveTo(150,200);
-				        buttonA1.moveTo(100,200);
-               		}else{
-               			buttonD1.moveTo(-250,-200);
-						buttonC1.moveTo(-300,-200);
-				        buttonB1.moveTo(-350,-200);
-				        buttonA1.moveTo(-400,-200);
-               			btr_nR=0;
-               		}
-               	}
-          } //room
+               		//数字ボタン
+               	function button_int(A){
+				 	addButton(buttonA1,145,175,A);
+				 	addButton(buttonB1,270,175,A);
+				 	addButton(buttonC1,395,175,A);
+				 	addButton(buttonD1,520,175,A);
+				}
+		} //room
 
-            		//button識別変数
+            		//アルファbutton識別変数
             			buttonA.ind=1;
 						buttonB.ind=2;
 						buttonC.ind=3;
 						buttonD.ind=4;
-		            
-				//buttonイベント
-					buttonA.ontouchstart = buttonOntuch;
-               	 	buttonB.ontouchstart = buttonOntuch;
-         		    buttonC.ontouchstart = buttonOntuch;
-         		    buttonD.ontouchstart = function(){
-         		   	
-         			if(btnStr[btr_Ai]=="H" && btnStr[btr_Bi]=="N" && btnStr[btr_Ci]=="L"){
-							alert("正解です。");
-						}else{
-							alert("違います。");
-         		   
-         		    }
-         	}
+			            
+					//buttonイベント
+						buttonA.ontouchstart = buttonOntuch;
+	               	 	buttonB.ontouchstart = buttonOntuch;
+	         		    buttonC.ontouchstart = buttonOntuch;
+	         		    buttonD.ontouchstart = function(){
+	         		    if(btnStr[btr_Ai]=="H" && btnStr[btr_Bi]=="N" && btnStr[btr_Ci]=="L"){
+								alert("正解です。");
+							}else{
+								alert("違います。");
+	         		   
+	         		    }
+	         		    }
+
+					//数字button識別
+						buttonA1.ind=1;
+						buttonB1.ind=2;
+						buttonC1.ind=3;
+						buttonD1.ind=4;
+						
+		            //数字buttonイベント
+					buttonA1.ontouchstart = buttonOntuch1;
+               	 	buttonB1.ontouchstart = buttonOntuch1;
+         		    buttonC1.ontouchstart = buttonOntuch1;
+         		    buttonD1.ontouchstart = buttonOntuch1;	         		    
+	         		   	
+	         			
+	         
+
          		    
       		
       			//buttonクリック処理	
@@ -559,47 +574,39 @@ window.onload = function() {
 							}
 					    }
 
-					    
-            			buttonA1.ind=1;
-						buttonB1.ind=2;
-						buttonC1.ind=3;
-						buttonD1.ind=4;
-		            //buttonイベント
-					buttonA1.ontouchstart = buttonOntuch;
-               	 	buttonB1.ontouchstart = buttonOntuch;
-         		    buttonC1.ontouchstart = buttonOntuch;
-         		    buttonD1.ontouchstart = buttonOntuch;
-
-      			   		function buttonOntuch(){
+					   	function buttonOntuch1(){
 							switch(this.ind){
 							case 1 :
-								btr_nAi=checkInd(btr_nAi);
+								btr_nAi=checkInd1(btr_nAi);
 								buttonA1.text=btnStr1[btr_nAi];
 								break;
 							case 2 :
-								btr_nBi=checkInd(btr_nBi);
+								btr_nBi=checkInd1(btr_nBi);
 								buttonB1.text=btnStr1[btr_nBi];
 								break;		
 							case 3 :
-								btr_nCi=checkInd(btr_nCi);
+								btr_nCi=checkInd1(btr_nCi);
 								buttonC1.text=btnStr1[btr_nCi];
 								break;
 							case 4 :
-								btr_nDi=checkInd(btr_nDi);
+								btr_nDi=checkInd1(btr_nDi);
 								buttonD1.text=btnStr1[btr_nDi];
 								break;
 							}
 							
-							if(btnStr1[btr_nAi]=="1" && btnStr1[btr_nBi]=="2" && btnStr1[btr_nCi]=="1" && btnStr1[btr_nDi]=="4"){
+							if(btnStr1[btr_nAi]=="2" && btnStr1[btr_nBi]=="3" && btnStr1[btr_nCi]=="1" && btnStr1[btr_nDi]=="4"){
 								alert("正解！");
 							}
 							
 					    }
+            	
+
+      		
 					    
-				function checkInd(btr){
+				function checkInd1(btr){
 						btr++;
 						
-						if(btr==9){
+						if(btr==10){
 						    btr=0;
 						 
 						}
